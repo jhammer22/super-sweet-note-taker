@@ -8,10 +8,10 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 
-// Middleware for parsing JSON and urlencoded form data
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use('/api', api);
+
 
 app.use(express.static('public'));
 
@@ -22,7 +22,6 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
   const newNote = req.body
   newNote.id = uniqid()
-  console.log(notesDb)
   notesDb.push(newNote)
   fs.writeFile('./db/db.json', JSON.stringify(notesDb), err => {
     if (err) throw err
@@ -43,10 +42,17 @@ app.get('*', (req, res) =>
 
 
 
-
-// app.delete('/notes', (req, res) =>
-//   res.sendFile(path.join(__dirname, '/public/notes.html'))
-// );
+// bonus
+// app.delete('/api/notes/:id', (req, res) => {
+//   const id = req.params.id
+//   // filter method or loop to figure out index
+//   fs.writeFile('./db/db.json', JSON.stringify(notesDb), err => {
+//     if (err) throw err
+//     console.log('success')
+    
+//   })
+//   res.json(newNote)
+// })
 
 
 
